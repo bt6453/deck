@@ -15,4 +15,32 @@ class Deck
     end
   end
 
+  def shuffle
+    #This was my first algorithm to shuffle the deck, until I realized Ruby arrays have a shuffle method
+    #now looking at it, realized I could have shuffled it in place by swapping positions instead
+    #of 
+    #new_cards = []
+    #until @cards.empty?
+    #  new_cards << @cards.delete_at(rand(@cards.length))
+    #end
+    #@cards = new_cards
+    @cards.shuffle!
+  end
+
+  def deal(number_of_cards = 1)
+    dealt = []
+    number_of_cards.times.each do
+      dealt << @cards.pop
+    end
+    dealt
+  end
+
+  def peek
+    @cards.last
+  end
+
+  def to_s
+    @cards.map(&:to_s)
+  end
+
 end
