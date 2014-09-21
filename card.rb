@@ -1,14 +1,19 @@
 class Card
 
-  attr_accessor :suite
+  attr_accessor :suit
   attr_accessor :number
 
-  def initialize(suite, number)
-    @suite = suite
+  def initialize(suit, number)
+    @suit = suit
     @number = number
   end
 
   def to_s
-    "#{@number} of #{@suite}"
+    "#{@number} of #{@suit}"
   end
+
+  def <=>(other_card)
+    @number.to_i <=> other_card.number.to_i
+  end
+
 end
