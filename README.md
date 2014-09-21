@@ -1,0 +1,1 @@
+This library mimics a deck of cards.
