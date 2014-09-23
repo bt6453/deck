@@ -1,11 +1,13 @@
 class Card
 
   attr_accessor :suit
-  attr_accessor :number
+  attr_accessor :number #string representation
+  attr_accessor :value #actual number, useful for sorting
 
-  def initialize(suit, number)
+  def initialize(suit, number, value)
     @suit = suit
     @number = number
+    @value = value
   end
 
   def to_s
@@ -14,6 +16,10 @@ class Card
 
   def <=>(other_card)
     @number.to_i <=> other_card.number.to_i
+  end
+
+  def ==(other_card)
+    @suit == other_card.suit && @number == other_card.number
   end
 
 end

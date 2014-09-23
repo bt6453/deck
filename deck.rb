@@ -2,29 +2,46 @@ class Deck
   attr_reader :cards
   #ignoring jokers
   #All of the suits
-  SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+  SUITS = %w(Hearts Diamonds Clubs Spades)
   #all of the numbers, 2 thorugh 10 plus Jack, Queen, King, and Ace
-  NUMBERS = (2..10).map(&:to_s) + ['JACK', 'QUEEN', 'KING', 'ACE']
+  NUMBER_VALUES_MAP = { '2' => 2,
+                        '3' => 3,
+                        '4' => 4,
+                        '5' => 5,
+                        '6' => 6,
+                        '7' => 7,
+                        '8' => 8,
+                        '9' => 9,
+                        '10' => 10,
+                        'J' => 11,
+                        'Q' => 12,
+                        'K' => 13,
+                        'A' => 14
+                      }
 
   def initialize
     @cards = []
     SUITS.each do |suit|
-      NUMBERS.each do |number|
-        @cards << Card.new(suit, number)
+      NUMBER_VALUES_MAP.each do |number, value|
+        @cards << Card.new(suit, number, value)
       end
     end
   end
 
-  def shuffle
+  def shuffle(&block)
     #This was my first algorithm to shuffle the deck, until I realized Ruby arrays have a shuffle method
     #now looking at it, realized I could have shuffled it in place by swapping positions instead
-    #of 
+    #of moving them from one array to another
     #new_cards = []
     #until @cards.empty?
     #  new_cards << @cards.delete_at(rand(@cards.length))
     #end
     #@cards = new_cards
-    @cards.shuffle!
+    if block_given?
+      @cards = yield(@cards)
+    else
+      @cards.shuffle!
+    end
   end
 
   def deal(number_of_cards = 1)
