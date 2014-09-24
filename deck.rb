@@ -28,15 +28,9 @@ class Deck
     end
   end
 
+  #the block is so a user can pass their way to shuffle the cards.
+  #The block should return an array of Card objects.
   def shuffle(&block)
-    #This was my first algorithm to shuffle the deck, until I realized Ruby arrays have a shuffle method
-    #now looking at it, realized I could have shuffled it in place by swapping positions instead
-    #of moving them from one array to another
-    #new_cards = []
-    #until @cards.empty?
-    #  new_cards << @cards.delete_at(rand(@cards.length))
-    #end
-    #@cards = new_cards
     if block_given?
       @cards = yield(@cards)
     else
@@ -50,6 +44,11 @@ class Deck
       dealt << @cards.pop
     end
     dealt
+  end
+
+  #This will allow the "dealer" to put cards back in the deck
+  def collect_cards(cards)
+    @cards += cards
   end
 
   def peek

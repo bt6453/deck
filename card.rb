@@ -2,7 +2,7 @@ class Card
 
   attr_accessor :suit
   attr_accessor :number #string representation
-  attr_accessor :value #actual number, useful for sorting
+  attr_accessor :value #actual number, useful for sorting (doing it on strings would get the wrong order)
 
   def initialize(suit, number, value)
     @suit = suit
